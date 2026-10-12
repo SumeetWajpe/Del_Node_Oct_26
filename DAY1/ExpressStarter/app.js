@@ -13,10 +13,17 @@ const port = 3000;
 // });
 // Middleware
 app.use(express.static("public"));
+app.use(express.json()); // parses json body in the incoming request
 
 app.get("/user", (req, res) => {
   var user = { name: "Sumeet", location: "Pune" };
   res.json(user);
+});
+
+app.post("/newuser", (req, res) => {
+  console.log(req.body);
+  console.log("Ur post request handled !");
+  res.send("Success !!!");
 });
 
 app.listen(port, () => {
