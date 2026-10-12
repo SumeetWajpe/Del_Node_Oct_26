@@ -1,4 +1,5 @@
 const http = require("http");// http -> builtin module
+const fs = require('fs');
 
 const server = http.createServer(function(req,res) {
   res.writeHead(200, { "Content-Type": "text/plain" });
