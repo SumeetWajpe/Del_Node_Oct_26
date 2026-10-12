@@ -1,9 +1,13 @@
-const http = require("http");// http -> builtin module
-const fs = require('fs');
+const http = require("http"); // http -> builtin module
+const fs = require("fs");
 
-const server = http.createServer(function(req,res) {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello World!\n");
+const server = http.createServer(function (req, res) {
+  fs.readFile("Index.html", (err, dataFromFile) => {
+    if (!err) {
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(dataFromFile);
+    }
+  });
 });
 
 // starts a simple http server locally on port 3000
