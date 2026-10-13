@@ -22,4 +22,11 @@ router.post("/newcourse", function (req, res) {
   courses.push(newcourse);
   res.status(201).send("New course added successfully !");
 });
+
+router.delete("/deletecourse/:id", function (req, res) {
+  let courseId = +req.params.id;
+  let index = courses.findIndex(c => c.id == courseId);
+  courses.splice(index, 1);
+  res.json(courses);
+});
 module.exports = router;
