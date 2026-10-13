@@ -3,11 +3,21 @@ var router = express.Router();
 const courses = require("../models/courses.model.js");
 
 /* GET home page. */
-router.get("/courses", function (req, res, next) {
+router.get("/courses", function (req, res) {
   res.json(courses);
 });
+router.get("/coursedetails/:id", function (req, res) {
+  let courseId = +req.params.id;
+  console.log(courseId);
+  var theCourse = courses.find(c => c.id == courseId);
+  if (theCourse) {
+    res.json(theCourse);
+  } else {
+    return res.status(404).send("Course not found !");
+  }
+});
 
-router.post("/newcourse", function (req, res, next) {
+router.post("/newcourse", function (req, res) {
   var newcourse = req.body;
   courses.push(newcourse);
   res.status(201).send("New course added successfully !");
