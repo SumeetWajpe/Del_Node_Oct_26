@@ -7,7 +7,7 @@ router.get("/user", (req, res) => {
 });
 
 router.get("/userdetails", (req, res) => {
-  res.render("index", { heading: "User info goes here !" }); // ??
+  res.render("index", { heading: "User info goes here !", user }); // ??
 });
 
 router.post("/newuser", (req, res) => {
