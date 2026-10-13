@@ -13,15 +13,17 @@ router.get("/courses", async function (req, res) {
     res.status(500).json({ error: "Failed to fetch courses !" });
   }
 });
-router.get("/coursedetails/:id", function (req, res) {
-  let courseId = +req.params.id;
-  console.log(courseId);
-  var theCourse = courses.find(c => c.id == courseId);
-  if (theCourse) {
-    res.json(theCourse);
-  } else {
-    return res.status(404).send("Course not found !");
-  }
+router.get("/coursedetails/:id", async function (req, res) {
+  try {
+    let courseId = +req.params.id;
+    console.log(courseId);
+    var theCourse = await coursesModel.getCourseById(courseId);
+    if (theCourse) {
+      res.json(theCourse);
+    } else {
+      return res.status(404).send("Course not found !");
+    }
+  } catch (error) {}
 });
 
 router.post("/newcourse", function (req, res) {
@@ -30,10 +32,13 @@ router.post("/newcourse", function (req, res) {
   res.status(201).send("New course added successfully !");
 });
 
-router.delete("/deletecourse/:id", function (req, res) {
-  let courseId = +req.params.id;
-  let index = courses.findIndex(c => c.id == courseId);
-  courses.splice(index, 1);
-  res.json(courses);
+router.delete("/deletecourse/:id", async function (req, res) {
+  try {
+    let courseId = +req.params.id;
+    const deleted = await coursesModel.deleteCourse(courseId);
+    if (!deleted) return res.status(404).json({ error: "Course not found !" });
+
+    res.status(204).json(courses);
+  } catch (error) {}
 });
 module.exports = router;

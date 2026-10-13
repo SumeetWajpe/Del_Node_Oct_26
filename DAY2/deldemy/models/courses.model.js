@@ -6,7 +6,18 @@ async function getAllCourses() {
   // return resultset
   return rows;
 }
+async function getCourseById(id) {
+  const [rows] = await pool.query("SELECT * FROM courses WHERE id = ?", [id]);
+  return rows[0];
+}
+
+async function deleteCourse(id) {
+  const [result] = await pool.query("DELETE FROM courses WHERE id = ?", [id]);
+  return result.affectedRows > 0;
+}
 
 module.exports = {
   getAllCourses,
+  getCourseById,
+  deleteCourse,
 };
