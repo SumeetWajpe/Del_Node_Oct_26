@@ -1,10 +1,17 @@
 var express = require("express");
 var router = express.Router();
-const courses = require("../models/courses.model.js");
+const coursesModel = require("../models/courses.model.js");
 
 /* GET home page. */
-router.get("/courses", function (req, res) {
-  res.json(courses);
+router.get("/courses", async function (req, res) {
+  // Get the data from DB
+  try {
+    const courses = await coursesModel.getAllCourses();
+    res.json(courses);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to fetch courses !" });
+  }
 });
 router.get("/coursedetails/:id", function (req, res) {
   let courseId = +req.params.id;

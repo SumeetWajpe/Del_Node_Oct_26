@@ -1,3 +1,9 @@
+// const environment = process.env.NODE_ENV || 'example'
+// require("dotenv").config({
+//   path :path.resolve(__dirname,`.env.${environment}`)
+// });
+
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
