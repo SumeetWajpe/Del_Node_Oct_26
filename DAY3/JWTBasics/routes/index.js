@@ -34,4 +34,20 @@ router.post("/login", async function (req, res) {
   });
 });
 
+router.post("/verify", (req, res) => {
+  const authHeader = req.headers.authorization; // Bearer token
+  const token = authHeader?.split(" ")[1] || "";
+  if (token) {
+    jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+      if (err) return res.status(500).json({ err: "Invalid Token" });
+      if (decodedToken) {
+        console.log(decodedToken);
+        return res.json({ msg: "User authenticated successfully !" });
+      }
+    });
+  } else {
+    return res.status(401).json({ err: "Token not found !" });
+  }
+});
+
 module.exports = router;
