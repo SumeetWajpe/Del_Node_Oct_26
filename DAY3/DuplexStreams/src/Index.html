@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      function Initialize() {
+        const socket = io.connect();
+        socket.on("msg_from_server_peer", dataFromServerPeer => {
+          console.log(dataFromServerPeer);
+        });
+      }
+      window.addEventListener("DOMContentLoaded", Initialize);
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Using Websockets -</h1>
+    </header>
+  </body>
+</html>
