@@ -19,7 +19,8 @@ router.get("/coursedetails/:id", async function (req, res) {
     console.log(courseId);
     var theCourse = await coursesModel.getCourseById(courseId);
     if (theCourse) {
-      res.json(theCourse);
+      // send html + course details ??
+      res.render("coursedetails", { theCourse });
     } else {
       return res.status(404).send("Course not found !");
     }
