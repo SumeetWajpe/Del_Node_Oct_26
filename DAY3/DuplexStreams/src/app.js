@@ -17,6 +17,10 @@ io.sockets.on("connection", skt => {
     console.log(dataToBeSent);
     skt.emit("msg_from_server_peer", dataToBeSent);
   }, 2000);
+
+  skt.on("msg_from_client_peer", dataReceivedFromClient => {
+    console.log(dataReceivedFromClient);
+  });
 });
 
 server.listen(port, hostname, () => {

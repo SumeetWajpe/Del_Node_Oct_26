@@ -6,11 +6,17 @@
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+      var socket = null;
       function Initialize() {
-        const socket = io.connect();
+        socket = io.connect();
         socket.on("msg_from_server_peer", dataFromServerPeer => {
           console.log(dataFromServerPeer);
         });
+      }
+
+      function SendMessage() {
+        let msgToBeSent = document.getElementById("txtMessage").value;
+        socket.emit("msg_from_client_peer", msgToBeSent);
       }
       window.addEventListener("DOMContentLoaded", Initialize);
     </script>
@@ -19,5 +25,12 @@
     <header>
       <h1>Using Websockets -</h1>
     </header>
+    <main>
+      <label>
+        Enter your message here :
+        <input type="text" id="txtMessage" />
+        <input type="button" value="Send" onclick="SendMessage()" />
+      </label>
+    </main>
   </body>
 </html>
