@@ -4,6 +4,9 @@ const resolvers = {
     users: () => {
       return userModel;
     },
+    user: (_, { id }) => {
+      return userModel.find(u => u.id == id);
+    },
   },
 };
 
