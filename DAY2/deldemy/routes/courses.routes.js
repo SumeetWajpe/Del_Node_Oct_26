@@ -52,6 +52,8 @@ router.get("/video", (req, res) => {
   const CHUNK_SIZE = 10 ** 6; // 1MB
   console.log(videoSize);
 
+  
+
   // range
   const range = req.headers.range;
   const start = Number(range.replace(/\D/g, ""));
@@ -66,6 +68,7 @@ router.get("/video", (req, res) => {
   };
   res.writeHead(206, headers);
   const videoStream = fs.createReadStream(videoPath, { start, end });
+  
   videoStream.pipe(res);
 });
 
