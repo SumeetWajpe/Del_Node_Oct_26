@@ -9,6 +9,7 @@ router.get("/courses", async function (req, res) {
   // Get the data from DB
   try {
     const courses = await coursesModel.getAllCourses();
+    // res.setHeader("Access-Control-Allow-Origin","*")
     res.json(courses);
   } catch (error) {
     console.log(error);
